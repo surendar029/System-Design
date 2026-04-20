@@ -21,22 +21,32 @@ public class Main {
         parkingLotSystem.printFloors();
 
         try{
-            Vehicle vehicle1= VehicleFactory.createVehicle("QWE_QWWW",VehicleSize.SMALL);
-            ParkingTicket ticket1=parkingLotSystem.parkVehicle(vehicle1);
+//            Vehicle vehicle1= VehicleFactory.createVehicle("QWE_QWWW",VehicleSize.SMALL);
+//            ParkingTicket ticket1=parkingLotSystem.parkVehicle(vehicle1);
+//
+//            Vehicle vehicle2= VehicleFactory.createVehicle("EWE_EWWW",VehicleSize.LARGE);
+//            ParkingTicket ticket2=parkingLotSystem.parkVehicle(vehicle2);
+//
+//            Vehicle vehicle3= VehicleFactory.createVehicle("RWE_RWWW",VehicleSize.LARGE);
+//            ParkingTicket ticket3=parkingLotSystem.parkVehicle(vehicle3);
+//
+//            parkingLotSystem.printFloors();
+//
+//            Thread.sleep(5000);
+//
+//            parkingLotSystem.unParkVehicle(ticket1.getTicketID(), PaymentMode.CASH);
+//            parkingLotSystem.unParkVehicle(ticket2.getTicketID(), PaymentMode.CARD);
 
-            Vehicle vehicle2= VehicleFactory.createVehicle("EWE_EWWW",VehicleSize.LARGE);
-            ParkingTicket ticket2=parkingLotSystem.parkVehicle(vehicle2);
+            Vehicle vehicle1= VehicleFactory.createVehicle("TRUCK_EWWW",VehicleSize.LARGE);
+            Vehicle vehicle2= VehicleFactory.createVehicle("TRUCK_RWWW",VehicleSize.LARGE);
 
-            Vehicle vehicle3= VehicleFactory.createVehicle("RWE_RWWW",VehicleSize.LARGE);
-            ParkingTicket ticket3=parkingLotSystem.parkVehicle(vehicle3);
+            Thread t1=new Thread(()->parkingLotSystem.parkVehicle(vehicle1));
+            Thread t2=new Thread(()->parkingLotSystem.parkVehicle(vehicle2));
 
-            parkingLotSystem.printFloors();
-
-            Thread.sleep(5000);
-
-            parkingLotSystem.unParkVehicle(ticket1.getTicketID(), PaymentMode.CASH);
-            parkingLotSystem.unParkVehicle(ticket2.getTicketID(), PaymentMode.CARD);
-
+            t1.start();
+            t2.start();
+            t1.join();
+            t2.join();
             parkingLotSystem.printFloors();
 
         } catch (Exception e) {

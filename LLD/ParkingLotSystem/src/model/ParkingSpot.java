@@ -28,7 +28,7 @@ public class ParkingSpot {
         return isOccupied.get();
     }
 
-    public ParkingTicket parkVehicle(Vehicle vehicle) {
+    public synchronized ParkingTicket parkVehicle(Vehicle vehicle) {
         if (isOccupied.get() || vehicle.getVehicleSize() != spotSize) return null;
         parkedVehicle = vehicle;
         isOccupied.set(true);
