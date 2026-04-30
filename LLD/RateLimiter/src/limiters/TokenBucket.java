@@ -14,10 +14,9 @@ public class TokenBucket implements RateLimiter {
     }
 
     public boolean allowRequest(String key) {
-        Bucket bucket = buckets.computeIfAbsent(key, k -> new Bucket(capacity, reFillRate));
+        Bucket bucket=buckets.computeIfAbsent(key,k->new Bucket(capacity,reFillRate));
         return bucket.tryConsume();
     }
-
 
     public static class Bucket {
         private final int capacity;
@@ -34,22 +33,20 @@ public class TokenBucket implements RateLimiter {
 
         public synchronized boolean tryConsume() {
             refill();
-            if (tokens > 0) {
+            if (tokens>0){
                 tokens--;
                 return true;
             }
             return false;
         }
 
-
-        public void refill() {
+        private void refill() {
             long now = System.currentTimeMillis();
             double timeElapsedInSeconds = (double) (now - lastRefillTime) / 1000;
-            int tokenToAdd=((int)(timeElapsedInSeconds*reFillRate));
+            int tokenToAdd=(int)(timeElapsedInSeconds*capacity);
             System.out.println(now+"----"+lastRefillTime+"---"+timeElapsedInSeconds+"---"+reFillRate+"---"+tokenToAdd);
             tokens=Math.min(capacity,tokenToAdd+tokens);
             if(tokenToAdd>0) lastRefillTime=now;
         }
-
     }
 }

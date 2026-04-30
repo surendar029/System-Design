@@ -11,7 +11,7 @@ public class RateLimiterService {
         this.rateLimiter= RateLimiterFactory.create(type,capacity,rateOrWindowSeconds);
     }
 
-    public boolean allowRequest(String key) {
+    public boolean allowRequest(String key){
         return rateLimiter.allowRequest(key);
     }
 }
