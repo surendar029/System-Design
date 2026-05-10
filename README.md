@@ -1,9 +1,9 @@
 
 ```Technologies
-Java 
-Spring Boot
-HashMap
-LinkedList
-Custom Node Class
+SOLID Principles
+Singleton Pattern
+Strategy Pattern
+Factory Pattern
+Builder Pattern
 ```
 
